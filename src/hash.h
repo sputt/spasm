@@ -44,9 +44,9 @@ typedef struct _mh_hash_table {
 		}
 	};
 typedef struct
-{
+{	
 	typedef std::unordered_map<const char *, void*, mystringhash, myequalto> maptype;
-	 maptype *table;
+	maptype *table;
 	void (*remove_callback)(void *);
 	//list_t *list;
 	void *single_element;

@@ -1,6 +1,6 @@
 CC = $(CROSS_COMPILE)g++
 LD = $(CROSS_COMPILE)ld
-CXXFLAGS+=  -I.  -DUSE_REUSABLES -DUSE_GMP -DUNIXVER -DUSE_BUILTIN_FCREATE
+CXXFLAGS+= -std=c++11  -I.  -DUSE_REUSABLES -DUSE_GMP -DUNIXVER -DUSE_BUILTIN_FCREATE
 LDFLAGS+= -lc -lgmp -lm -lcrypto
 	 
 # Suffix Rules
@@ -13,7 +13,7 @@ LDFLAGS+= -lc -lgmp -lm -lcrypto
 		$(CC) $(CXXFLAGS) $< -o $@
 
 SRC = main.cpp opcodes.cpp pass_one.cpp pass_two.cpp utils.cpp export.cpp preop.cpp directive.cpp console.cpp \
-expand_buf.cpp hash.cpp list.cpp parser.cpp storage.cpp errors.cpp bitmap.cpp modp_ascii.cpp
+expand_buf.cpp hashmap.cpp list.cpp parser.cpp storage.cpp errors.cpp bitmap.cpp modp_ascii.cpp
 OBJ = $(addsuffix .o, $(basename $(SRC)))
 OBJ_FILES = $(addsuffix .o, $(basename $(notdir $(SRC))))
 	 

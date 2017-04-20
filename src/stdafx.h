@@ -82,6 +82,8 @@ using namespace ATL;
 #include <math.h>
 #include <errno.h>
 #include <stdbool.h>
+#include <functional>
+#include <unordered_map>
 
 #define __inout
 
@@ -103,6 +105,11 @@ typedef void *LPVOID;
 #define StringCchVPrintf(dest, size, fmt, args) vsprintf(dest, fmt, args)
 
 #define ARRAYSIZE(z) (sizeof(z)/sizeof((z)[0]))
+
+#ifndef TRUE
+#define TRUE 1
+#define FALSE 0
+#endif
 
 #endif
 #endif

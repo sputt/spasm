@@ -42,8 +42,6 @@
  * </PRE>
  */
 #include "stdafx.h"
-typedef char uint8_t;
-typedef int uint32_t;
 #include "modp_ascii.h"
 
 static const unsigned char gsToUpperMap[256] = {
