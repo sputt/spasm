@@ -15,7 +15,7 @@ HRESULT CTextStream::FinalConstruct()
 		fResult = SetStdHandle(STD_OUTPUT_HANDLE, hWrite);
 		m_hRead = hRead;
 		
-		stdout->_file = _open_osfhandle((long) hWrite, _O_TEXT);
+		//stdout->_file = _open_osfhandle((long) hWrite, _O_TEXT);
 
 	}
 	return S_OK;
