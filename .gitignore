@@ -1,0 +1,14 @@
+DLL Debug/
+Debug/
+Release/
+*.db
+*.suo
+*.user
+*.opendb
+*.sdf
+x64/
+ipch/
+.vscode/
+SPASM_h.h
+SPASM_i.c
+SPASM_p.c
