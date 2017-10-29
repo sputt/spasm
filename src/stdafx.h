@@ -63,7 +63,7 @@ using namespace ATL;
 
 //#include <vld.h>
 
-#import <scrrun.dll> rename("FreeSpace", "FreeSpace2") no_namespace, raw_interfaces_only
+#import <scrrun.dll> rename("FreeSpace", "FreeSpace2") rename("System", "System2") no_namespace, raw_interfaces_only
 
 #include "SPASM_h.h"
 

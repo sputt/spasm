@@ -21,7 +21,7 @@ void write_file (const unsigned char *, int, const char *);
 extern expr_t *expr_list, *expr_list_tail;
 extern output_t *output_list, *output_list_tail;
 
-#ifdef _WIN32
+#if  defined(_WIN32) && !defined(_TEST)
 CSPASMModule _AtlModule;
 #endif
 
@@ -206,6 +206,7 @@ int run_assembly()
 	return exit_code;
 }
 
+#ifndef _TEST
 #ifdef _WINDOWS
 int CALLBACK WinMain(HINSTANCE hInst, HINSTANCE  hPrev, LPSTR lpCommandLine, int nCmdShow)
 {
@@ -441,4 +442,5 @@ int main (int argc, char **argv)
 
 	return error;
 }
+#endif
 #endif

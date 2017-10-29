@@ -1,12 +1,11 @@
 #include "stdafx.h"
 
-#pragma comment(lib, "spasm.lib")
-#include "..\SPASM\pass_one.h"
-#include "..\SPASM\pass_two.h"
-#include "..\SPASM\parser.h"
-#include "..\SPASM\spasm.h"
-#include "..\SPASM\errors.h"
-#include "..\SPASM\storage.h"
+#include "..\src\pass_one.h"
+#include "..\src\pass_two.h"
+#include "..\src\parser.h"
+#include "..\src\spasm.h"
+#include "..\src\errors.h"
+#include "..\src\storage.h"
 
 using namespace System;
 using namespace System::Text;

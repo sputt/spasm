@@ -14,3 +14,5 @@ SPASM_h.h
 SPASM_i.c
 SPASM_p.c
 /.vs
+/tst/Test
+/Test

@@ -4,4 +4,4 @@
 
 #pragma once
 
-
+#include "../src/stdafx.h"
