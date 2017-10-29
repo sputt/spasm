@@ -9,6 +9,7 @@ Release/
 x64/
 ipch/
 .vscode/
+.vs/
 SPASM_h.h
 SPASM_i.c
 SPASM_p.c
