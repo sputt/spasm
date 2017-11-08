@@ -67,8 +67,7 @@ namespace SPASMTestsVS2008
 			free(output_contents);
 		}
 
-		[TestMethod]
-		void Macro1()
+		TESTMETHOD(Macro1)
 		{
 			bool success;
 			int result;
