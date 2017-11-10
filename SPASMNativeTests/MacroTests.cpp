@@ -1,6 +1,9 @@
 #include "..\src\stdafx.h"
 #include "CppUnitTest.h"
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 #include <string>
 #include <fstream>
 #include <streambuf>
@@ -155,222 +158,202 @@ namespace SPASMNativeTests
 			Assert::AreEqual("My prefix (11): Test string 4", result.c_str());
 		};
 
-		//TEST_METHOD(EmitDefine1)
-		//{
-		//	char buffer[256] = " .db EmitDefine1";
-		//	int session = StartSPASMErrorSession();
-		//	run_first_pass(buffer);
-		//	Assert::AreEqual(false, IsSPASMErrorSessionFatal(session), "Errors occurred");
-		//	ReplaySPASMErrorSession(session);
-		//	EndSPASMErrorSession(session);
+		TEST_METHOD(EmitDefine1)
+		{
+			char buffer[256] = " .db EmitDefine1";
+			int session = StartSPASMErrorSession();
+			run_first_pass(buffer);
+			Assert::AreEqual(false, IsSPASMErrorSessionFatal(session), TEXT("Errors occurred"));
+			ReplaySPASMErrorSession(session);
+			EndSPASMErrorSession(session);
 
-		//	Assert::AreEqual((BYTE)10, output_contents[0], "Output value was wrong");
-		//};
+			Assert::AreEqual((BYTE)10, output_contents[0], TEXT("Output value was wrong"));
+		};
 
-		//TEST_METHOD(EmitDefine2)
-		//{
-		//	char buffer[256] = " .db EmitDefine2";
-		//	int session = StartSPASMErrorSession();
-		//	run_first_pass(buffer);
-		//	Assert::AreEqual(false, IsSPASMErrorSessionFatal(session), "Errors occurred");
-		//	ReplaySPASMErrorSession(session);
-		//	EndSPASMErrorSession(session);
+		TEST_METHOD(EmitDefine2)
+		{
+			char buffer[256] = " .db EmitDefine2";
+			int session = StartSPASMErrorSession();
+			run_first_pass(buffer);
+			Assert::AreEqual(false, IsSPASMErrorSessionFatal(session), TEXT("Errors occurred"));
+			ReplaySPASMErrorSession(session);
+			EndSPASMErrorSession(session);
 
-		//	Assert::AreEqual((BYTE)33, (BYTE)(output_contents[0] + output_contents[1] + output_contents[2]), "Output value was wrong");
-		//};
+			Assert::AreEqual((BYTE)33, (BYTE)(output_contents[0] + output_contents[1] + output_contents[2]), TEXT("Output value was wrong"));
+		};
 
-		//TEST_METHOD(EmitDefine3)
-		//{
-		//	char buffer[256] = " .db EmitDefine3";
-		//	int session = StartSPASMErrorSession();
-		//	run_first_pass(buffer);
-		//	Assert::AreEqual(false, IsSPASMErrorSessionFatal(session), "Errors occurred");
-		//	ReplaySPASMErrorSession(session);
-		//	EndSPASMErrorSession(session);
+		TEST_METHOD(EmitDefine3)
+		{
+			char buffer[256] = " .db EmitDefine3";
+			int session = StartSPASMErrorSession();
+			run_first_pass(buffer);
+			Assert::AreEqual(false, IsSPASMErrorSessionFatal(session), TEXT("Errors occurred"));
+			ReplaySPASMErrorSession(session);
+			EndSPASMErrorSession(session);
 
-		//	Assert::AreEqual((BYTE)33, (BYTE)(output_contents[0] + output_contents[1] + output_contents[2]), "Output value was wrong");
-		//};
+			Assert::AreEqual((BYTE)33, (BYTE)(output_contents[0] + output_contents[1] + output_contents[2]), TEXT("Output value was wrong"));
+		};
 
-		//// This test verifies that errors that occur parsing element get passed up
-		//TEST_METHOD(EmitDefine4)
-		//{
-		//	char buffer[256] = " .db EmitDefine4";
-		//	int session = StartSPASMErrorSession();
-		//	run_first_pass(buffer);
-		//	Assert::AreEqual((DWORD)SPASM_ERR_VALUE_EXPECTED, GetLastSPASMError(), "Error did not occur when it should have");
-		//	ReplaySPASMErrorSession(session);
-		//	EndSPASMErrorSession(session);
-		//};
+		// This test verifies that errors that occur parsing element get passed up
+		TEST_METHOD(EmitDefine4)
+		{
+			char buffer[256] = " .db EmitDefine4";
+			int session = StartSPASMErrorSession();
+			run_first_pass(buffer);
+			Assert::AreEqual((DWORD)SPASM_ERR_VALUE_EXPECTED, GetLastSPASMError(), TEXT("Error did not occur when it should have"));
+			ReplaySPASMErrorSession(session);
+			EndSPASMErrorSession(session);
+		};
 
-		//// This test verifies that string defines are correctly parsed
-		//TEST_METHOD(EmitDefine5)
-		//{
-		//	char buffer[256] = " .db EmitDefine5";
-		//	int session = StartSPASMErrorSession();
-		//	run_first_pass(buffer);
-		//	ReplaySPASMErrorSession(session);
-		//	Assert::AreEqual(false, IsSPASMErrorSessionFatal(session), "Errors occurred");
-		//	EndSPASMErrorSession(session);
+		// This test verifies that string defines are correctly parsed
+		TEST_METHOD(EmitDefine5)
+		{
+			char buffer[256] = " .db EmitDefine5";
+			int session = StartSPASMErrorSession();
+			run_first_pass(buffer);
+			ReplaySPASMErrorSession(session);
+			Assert::AreEqual(false, IsSPASMErrorSessionFatal(session), TEXT("Errors occurred"));
+			EndSPASMErrorSession(session);
 
-		//	Assert::AreEqual((BYTE) 'A', (BYTE)output_contents[0], "Output value was wrong");
-		//};
+			Assert::AreEqual((BYTE) 'A', (BYTE)output_contents[0], TEXT("Output value was wrong"));
+		};
 
-		//TEST_METHOD(ConcatMacro1)
-		//{
-		//	char buffer[256] = " ConcatMacro1(12)";
-		//	error_occurred = false;
-		//	run_first_pass(buffer);
+		TEST_METHOD(ConcatMacro1)
+		{
+			char buffer[256] = " ConcatMacro1(12)";
+			error_occurred = false;
+			run_first_pass(buffer);
 
-		//	Assert::IsFalse(error_occurred);
+			Assert::IsFalse(error_occurred);
+			Assert::AreEqual("$C", read_contents("ConcatMacro1.txt").c_str());
+		};
 
-		//	System::IO::StreamReader ^sr = gcnew System::IO::StreamReader("ConcatMacro1.txt");
-		//	System::String ^str = sr->ReadLine();
+		TEST_METHOD(ConcatMacro2)
+		{
+			char buffer[256] = " ConcatMacro2(test)";
+			error_occurred = false;
+			run_first_pass(buffer);
 
-		//	Assert::AreEqual(gcnew String("$C"), str);
-		//};
+			Assert::IsFalse(error_occurred);
+			Assert::AreEqual("test", read_contents("ConcatMacro2.txt").c_str());
+		};
 
-		//TEST_METHOD(ConcatMacro2)
-		//{
-		//	char buffer[256] = " ConcatMacro2(test)";
-		//	error_occurred = false;
-		//	run_first_pass(buffer);
+		TEST_METHOD(ConcatMacro3)
+		{
+			char buffer[256] = " ConcatMacro3(6)";
+			error_occurred = false;
+			run_first_pass(buffer);
 
-		//	Assert::IsFalse(error_occurred);
+			Assert::IsFalse(error_occurred);
+			Assert::AreEqual("XXXXXX", read_contents("ConcatMacro3.txt").c_str());
+		};
 
-		//	System::IO::StreamReader ^sr = gcnew System::IO::StreamReader("ConcatMacro2.txt");
-		//	System::String ^str = sr->ReadLine();
+		TEST_METHOD(ConcatMacro4)
+		{
+			char buffer[256] = " ConcatMacro4(8)";
+			error_occurred = false;
+			run_first_pass(buffer);
+			Assert::IsFalse(error_occurred);
+			Assert::AreEqual("XXXXXXXX", read_contents("ConcatMacro4.txt").c_str());
+		};
 
-		//	Assert::AreEqual(gcnew String("test"), str);
-		//};
+		TEST_METHOD(ConcatMacro5)
+		{
+			char buffer[256] = " ConcatMacro5()";
+			error_occurred = false;
+			run_first_pass(buffer);
+			Assert::IsFalse(error_occurred);
+			Assert::AreEqual("XXXXXXX", read_contents("ConcatMacro5.txt").c_str());
+		};
 
-		//TEST_METHOD(ConcatMacro3)
-		//{
-		//	char buffer[256] = " ConcatMacro3(6)";
-		//	error_occurred = false;
-		//	run_first_pass(buffer);
+		void IsWithinRange(int v1, int v2)
+		{
+			int diff = abs(v1 - v2);
+			TCHAR str[256];
+			_stprintf_s(str, TEXT("Value of off by %d"), v2 - v1);
+			Assert::IsTrue(diff < 15, str);
+		}
 
-		//	Assert::IsFalse(error_occurred);
+		TEST_METHOD(Fixed14Power2)
+		{
+			bool success;
+			int result;
+			success = parse_num("Fixed14Power(25735, 2)", &result);
+			Assert::IsTrue(success);
+			IsWithinRange(40425, result);
+		};
 
-		//	System::IO::StreamReader ^sr = gcnew System::IO::StreamReader("ConcatMacro3.txt");
-		//	System::String ^str = sr->ReadLine();
+		TEST_METHOD(Fixed14Power3)
+		{
+			bool success;
+			int result;
+			success = parse_num("Fixed14Power(25735, 3)", &result);
+			Assert::IsTrue(success);
+			IsWithinRange(63500, result);
+		};
 
-		//	Assert::AreEqual(gcnew String("XXXXXX"), str);
-		//};
+		TEST_METHOD(Fixed14Power4)
+		{
+			bool success;
+			int result;
+			success = parse_num("Fixed14Power(25735, 4)", &result);
+			Assert::IsTrue(success);
+			IsWithinRange(99732, result);
+		};
 
-		//TEST_METHOD(ConcatMacro4)
-		//{
-		//	char buffer[256] = " ConcatMacro4(8)";
-		//	error_occurred = false;
-		//	run_first_pass(buffer);
-		//	Assert::IsFalse(error_occurred);
+		TEST_METHOD(Fixed14Cos15)
+		{
+			bool success;
+			int result;
+			success = parse_num("Fixed14Cos(15)", &result);
+			Assert::IsTrue(success);
+			IsWithinRange(cos(15.0 * M_PI / 180.0) * 16384.0, result);
+		};
 
-		//	System::IO::StreamReader ^sr = gcnew System::IO::StreamReader("ConcatMacro4.txt");
-		//	System::String ^str = sr->ReadLine();
+		TEST_METHOD(Fixed14Cos30)
+		{
+			bool success;
+			int result;
+			success = parse_num("Fixed14Cos(30)", &result);
+			Assert::IsTrue(success);
+			IsWithinRange(cos(30.0 * M_PI / 180.0) * 16384.0, result);
+		};
 
-		//	Assert::AreEqual(gcnew String("XXXXXXXX"), str);
-		//};
+		TEST_METHOD(Fixed14Cos45)
+		{
+			bool success;
+			int result;
+			success = parse_num("Fixed14Cos(45)", &result);
+			Assert::IsTrue(success);
+			IsWithinRange(cos(45.0 * M_PI / 180.0) * 16384.0, result);
+		};
 
-		//TEST_METHOD(ConcatMacro5)
-		//{
-		//	char buffer[256] = " ConcatMacro5()";
-		//	error_occurred = false;
-		//	run_first_pass(buffer);
-		//	Assert::IsFalse(error_occurred);
+		TEST_METHOD(Fixed14Cos60)
+		{
+			bool success;
+			int result;
+			success = parse_num("Fixed14Cos(60)", &result);
+			Assert::IsTrue(success);
+			IsWithinRange(cos(60.0 * M_PI / 180.0) * 16384.0, result);
+		};
 
-		//	System::IO::StreamReader ^sr = gcnew System::IO::StreamReader("ConcatMacro5.txt");
-		//	System::String ^str = sr->ReadLine();
+		TEST_METHOD(Fixed14Cos75)
+		{
+			bool success;
+			int result;
+			success = parse_num("Fixed14Cos(75)", &result);
+			Assert::IsTrue(success);
+			IsWithinRange(cos(75.0 * M_PI / 180.0) * 16384.0, result);
+		};
 
-		//	Assert::AreEqual(gcnew String("XXXXXXX"), str);
-		//};
+		TEST_METHOD(Fixed14Cos90)
+		{
+			bool success;
+			int result;
+			success = parse_num("Fixed14Cos(90)", &result);
+			Assert::IsTrue(success);
 
-		//void IsWithinRange(int v1, int v2)
-		//{
-		//	int diff = abs(v1 - v2);
-		//	char str[256];
-		//	sprintf_s(str, "Value of off by %d", v2 - v1);
-		//	Assert::IsTrue(diff < 15, gcnew String(str));
-		//}
-
-		//TEST_METHOD(Fixed14Power2)
-		//{
-		//	bool success;
-		//	int result;
-		//	success = parse_num("Fixed14Power(25735, 2)", &result);
-		//	Assert::IsTrue(success);
-		//	IsWithinRange(40425, result);
-		//};
-
-		//TEST_METHOD(Fixed14Power3)
-		//{
-		//	bool success;
-		//	int result;
-		//	success = parse_num("Fixed14Power(25735, 3)", &result);
-		//	Assert::IsTrue(success);
-		//	IsWithinRange(63500, result);
-		//};
-
-		//TEST_METHOD(Fixed14Power4)
-		//{
-		//	bool success;
-		//	int result;
-		//	success = parse_num("Fixed14Power(25735, 4)", &result);
-		//	Assert::IsTrue(success);
-		//	IsWithinRange(99732, result);
-		//};
-
-		//TEST_METHOD(Fixed14Cos15)
-		//{
-		//	bool success;
-		//	int result;
-		//	success = parse_num("Fixed14Cos(15)", &result);
-		//	Assert::IsTrue(success);
-		//	IsWithinRange(System::Math::Cos(15.0 * System::Math::PI / 180.0) * 16384.0, result);
-		//};
-
-		//TEST_METHOD(Fixed14Cos30)
-		//{
-		//	bool success;
-		//	int result;
-		//	success = parse_num("Fixed14Cos(30)", &result);
-		//	Assert::IsTrue(success);
-		//	IsWithinRange(System::Math::Cos(30.0 * System::Math::PI / 180.0) * 16384.0, result);
-		//};
-
-		//TEST_METHOD(Fixed14Cos45)
-		//{
-		//	bool success;
-		//	int result;
-		//	success = parse_num("Fixed14Cos(45)", &result);
-		//	Assert::IsTrue(success);
-		//	IsWithinRange(System::Math::Cos(45.0 * System::Math::PI / 180.0) * 16384.0, result);
-		//};
-
-		//TEST_METHOD(Fixed14Cos60)
-		//{
-		//	bool success;
-		//	int result;
-		//	success = parse_num("Fixed14Cos(60)", &result);
-		//	Assert::IsTrue(success);
-		//	IsWithinRange(System::Math::Cos(60.0 * System::Math::PI / 180.0) * 16384.0, result);
-		//};
-
-		//TEST_METHOD(Fixed14Cos75)
-		//{
-		//	bool success;
-		//	int result;
-		//	success = parse_num("Fixed14Cos(75)", &result);
-		//	Assert::IsTrue(success);
-		//	IsWithinRange(System::Math::Cos(75.0 * System::Math::PI / 180.0) * 16384.0, result);
-		//};
-
-		//TEST_METHOD(Fixed14Cos90)
-		//{
-		//	bool success;
-		//	int result;
-		//	success = parse_num("Fixed14Cos(90)", &result);
-		//	Assert::IsTrue(success);
-
-		//	IsWithinRange(System::Math::Cos(90.0 * System::Math::PI / 180.0) * 16384.0, result);
-		//};
+			IsWithinRange(cos(90.0 * M_PI / 180.0) * 16384.0, result);
+		};
 	};
 }

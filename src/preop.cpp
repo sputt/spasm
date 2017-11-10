@@ -730,7 +730,12 @@ char *skip_until (char *ptr, int *pnLine, int argc, ...)
 				va_end(argp);
 			}
 			
+			const char *old_line = line;
 			line = next_code_line(line);
+			if (line == old_line) {
+				SetLastError(SPASM_ERR_SYNTAX);
+				line++;
+			}
 		} while (line < line_end && !error_occurred);
 			
 		ptr = line_end;

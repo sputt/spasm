@@ -23,13 +23,16 @@
     <ClCompile Include="ParserTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MismatchTests.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MacroTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LabelTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PreprocessorTests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CommentTests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

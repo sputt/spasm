@@ -149,10 +149,11 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CommentTests.cpp" />
     <ClCompile Include="LabelTests.cpp" />
     <ClCompile Include="MacroTests.cpp" />
-    <ClCompile Include="MismatchTests.cpp" />
     <ClCompile Include="ParserTests.cpp" />
+    <ClCompile Include="PreprocessorTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\src\SPASM.vcxproj">
