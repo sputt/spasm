@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#define TEXT_STREAM_C
 #include "CTextStream.h"
 
 #define MAX_PIPE_SIZE (1024 * 1024)
@@ -10,12 +11,11 @@ HRESULT CTextStream::FinalConstruct()
 	BOOL fResult = CreatePipe(&hRead, &hWrite, NULL, MAX_PIPE_SIZE);
 	if (fResult)
 	{
-		//DWORD dwMode = PIPE_READMODE_BYTE | PIPE_NOWAIT;
-		//fResult = SetNamedPipeHandleState(hRead, &dwMode, NULL, NULL);
-		fResult = SetStdHandle(STD_OUTPUT_HANDLE, hWrite);
+		DWORD dwMode = PIPE_READMODE_BYTE; // | PIPE_NOWAIT;
+		fResult = SetNamedPipeHandleState(hRead, &dwMode, NULL, NULL);
 		m_hRead = hRead;
-		
-		//stdout->_file = _open_osfhandle((long) hWrite, _O_TEXT);
+
+		g_hStdOut = hWrite;
 
 	}
 	return S_OK;
@@ -39,12 +39,19 @@ STDMETHODIMP CTextStream::get_AtEndOfStream(VARIANT_BOOL *bEOS)
 
 STDMETHODIMP CTextStream::Read(LONG cch, LPBSTR lpbstrResult)
 {
-	fflush(stdout);
+	DWORD dwAvail;
+	BOOL fResult = PeekNamedPipe(m_hRead, NULL, 0, NULL, &dwAvail, NULL);
+	
+	if (dwAvail == 0)
+	{
+		*lpbstrResult = SysAllocString(L"");
+		return S_FALSE;
+	}
+
 	DWORD dwRead;
 	CComHeapPtr<TCHAR> szText;
-	int cbText = min(MAX_PIPE_SIZE, cch) * sizeof(TCHAR);
-	szText.Allocate(cbText);
-	BOOL fResult = ReadFile(m_hRead, szText, cbText, &dwRead, NULL);
+	szText.Allocate(dwAvail + sizeof(TCHAR));
+	fResult = ReadFile(m_hRead, szText, dwAvail, &dwRead, NULL);
 	if (fResult)
 	{
 		szText[dwRead / sizeof(TCHAR)] = _T('\0');

@@ -1,5 +1,9 @@
 #include "stdafx.h"
 
+#ifdef WINVER
+#include "CTextStream.h"
+#endif
+
 #define _ERRORS_CPP
 #include "errors.h"
 
@@ -47,6 +51,20 @@ static void PrintSPASMError(const LPERRORINSTANCE lpError)
 
 		printf("%s\n", lpError->lpszErrorText);
 #ifdef WINVER
+
+		DWORD dwWritten;
+		if (lpError->lpszAnnotation != NULL)
+		{
+			WriteFile(g_hStdOut, lpError->lpszAnnotation,
+				sizeof(TCHAR) * _tcslen(lpError->lpszAnnotation), &dwWritten, NULL);
+			WriteFile(g_hStdOut, _T("\n"),
+				sizeof(TCHAR), &dwWritten, NULL);
+		}
+		WriteFile(g_hStdOut, lpError->lpszErrorText,
+			sizeof(TCHAR) * _tcslen(lpError->lpszErrorText), &dwWritten, NULL);
+		WriteFile(g_hStdOut, _T("\n"),
+			sizeof(TCHAR), &dwWritten, NULL);
+
 		OutputDebugString(lpError->lpszErrorText);
 		OutputDebugString(_T("\n"));
 #endif
